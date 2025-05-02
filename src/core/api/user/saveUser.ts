@@ -7,7 +7,7 @@ export const saveUser = async (payload: User): Promise<User> => {
   console.log(payload);
   
 
-  const { data } = await erragonApi.post<User>("/usuario", {
+  const { data } = await erragonApi().post<User>("/usuario", {
     email,
     password,
     rolId,

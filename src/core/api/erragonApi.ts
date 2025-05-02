@@ -1,7 +1,12 @@
 import axios from "axios"
 
-export const erragonApi = axios.create({
-  baseURL: import.meta.env.VITE_API_URL
-})
+export const erragonApi = () => {
+  const urlApi = localStorage.getItem("api_url")
+  if (!urlApi) throw new Error("API URL not set")
+
+  return axios.create({
+    baseURL: urlApi,
+  })
+}
 
 //TODO INTERCEPTORS

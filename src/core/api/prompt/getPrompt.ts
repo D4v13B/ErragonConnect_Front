@@ -9,7 +9,7 @@ export interface PromptResponse {
 
 export const getPrompt = async(): Promise<PromptResponse | null> => {
   try {
-      const {data} = await erragonApi.get<PromptResponse>("/prompt")
+      const {data} = await erragonApi().get<PromptResponse>("/prompt")
 
       if(!data) return null
 

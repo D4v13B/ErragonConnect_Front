@@ -3,7 +3,7 @@ import { erragonApi } from "../erragonApi";
 
 export const loginApi = async (email: string, password: string) : Promise<User | null> => {
   try {
-    const { data } = await erragonApi.post<User>("/auth/login", {
+    const { data } = await erragonApi().post<User>("/auth/login", {
       email,
       password
     });

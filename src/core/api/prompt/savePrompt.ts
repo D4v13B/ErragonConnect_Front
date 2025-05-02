@@ -3,7 +3,7 @@ import { genericResponse } from "../types"
 
 export const savePromptAction = async(prompt: string) => {
   try {
-      const {data} = await erragonApi.post<genericResponse>("/prompt", {
+      const {data} = await erragonApi().post<genericResponse>("/prompt", {
         prompt
       })
 

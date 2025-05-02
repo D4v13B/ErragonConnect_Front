@@ -2,6 +2,7 @@ import { createContext, useContext, useEffect, useState } from "react"
 import { useToast } from "@/hooks/use-toast"
 import { loginApi } from "@/core/api/auth/login.api"
 import { LocalStorageService } from "@/core/utils/localStorage"
+import { useApiURL } from "./apiurl-context"
 
 // Define types
 export interface User {
@@ -53,6 +54,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [user, setUser] = useState<User | null>(null)
   const [isLoading, setIsLoading] = useState(true)
   const { toast } = useToast()
+  // const {setApiUrl} = useApiURL()
 
   // Check if user is already logged in
   useEffect(() => {
@@ -131,11 +133,14 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   // Logout function
   const logout = () => {
     setUser(null)
+    // setApiUrl("")
     localStorage.removeItem("user")
+    localStorage.removeItem("api_url")
     toast({
       title: "Logged out",
       description: "You have been logged out successfully",
     })
+
   }
 
   return (

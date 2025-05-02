@@ -31,7 +31,7 @@ export function SocketProvider({ children }: { children: React.ReactNode }) {
     // Create socket connection
     // Note: In a real application, you would connect to your backend server
     // For this example, we're just creating a socket instance that won't actually connect
-    const newSocket = io(import.meta.env.VITE_API_URL, {
+    const newSocket = io(localStorage.getItem("api_url") as string, {
       query: {
         userId: user.id,
       },

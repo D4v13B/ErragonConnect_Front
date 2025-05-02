@@ -3,7 +3,7 @@ import { erragonApi } from "../erragonApi"
 
 export const getRolesApi = async ():Promise<RolResponse[] | null> => {
   try {
-    const { data } = await erragonApi.get<RolResponse[]>("/roles")
+    const { data } = await erragonApi().get<RolResponse[]>("/roles")
 
     if(!data) return null
 

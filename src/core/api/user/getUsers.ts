@@ -8,7 +8,7 @@ import { erragonApi } from "../erragonApi"
 export const getUsers = async (): Promise<User[]> => {
   try {
         
-    const { data } = await erragonApi.get<User[]>("/usuario")
+    const { data } = await erragonApi().get<User[]>("/usuario")
 
     return data
   } catch (error) {
