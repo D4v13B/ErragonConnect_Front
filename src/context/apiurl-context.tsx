@@ -3,51 +3,72 @@ import Page403 from "@/pages/403-page"
 import { createContext, useContext, useEffect, useState } from "react"
 
 export interface ApiURLContextType {
-  apiUrl: string
-  setApiUrl: (apiUrl: string) => void
+  nombre: string
+  backendUrl: string
+  logoImage: string
+  setBackendUrl: (apiUrl: string) => void
 }
 
 const ApiURLContext = createContext<ApiURLContextType | undefined>(undefined)
 
 export function ApiURLProvider({ children }: { children: React.ReactNode }) {
-  const [apiUrl, setApiUrl] = useState(() => {
-    return localStorage.getItem("api_url")
+  const empresaParam = getEmpresaParam()
+
+  const [backendUrl, setBackendUrl] = useState(() => {
+    const apiUrl = localStorage.getItem("api_url")
+    return apiUrl && !empresaParam ? apiUrl : ""
   })
 
-  useEffect(() => {
-    if (apiUrl) return
+  const [nombre, setNombre] = useState(() => {
+    const storedNombre = localStorage.getItem("nombre")
+    return storedNombre && !empresaParam ? storedNombre : ""
+  })
 
-    const empresa = getEmpresaParam()
+  const [logoImage, setLogoImage] = useState(() => {
+    const storedLogo = localStorage.getItem("logoImage")
+    return storedLogo && !empresaParam ? storedLogo : ""
+  })
 
-    if (!empresa) {
-      setApiUrl("403")
+  useEffect(() => {    
+
+    if (backendUrl) return
+
+    if (!empresaParam) {
+      setBackendUrl("403")
       return
     }
 
-    fetch(`${import.meta.env.VITE_API_URL}/${empresa}`)
+    fetch(`${import.meta.env.VITE_API_URL}?empresa=${empresaParam}`)
       .then((res) => {
         if (!res.ok) throw new Error("Error al obtener backendDomain")
         return res.json()
       })
       .then((data) => {
-        setApiUrl(data.backendDomain)
-        localStorage.setItem("api_url", data.backendDomain)
+        const rutaAPI = data.datos[2].backend_url        
+
+        setBackendUrl(rutaAPI)        
+        setNombre(data.datos[0].nombre ?? "")
+        setLogoImage(data.datos[1].logo_image ?? "")
+
+        localStorage.setItem("api_url", data.datos[2].backend_url)
+        localStorage.setItem("nombre", data.datos[0].nombre ?? "")
+        localStorage.setItem("logoImage", data.datos[1].logo_image ?? "")
       })
       .catch(() => {
-        setApiUrl("403")
+        setBackendUrl("403")
       })
-  }, [apiUrl])
+  }, [backendUrl, nombre, logoImage, empresaParam])
 
-  if (apiUrl === "403") return <Page403 />
-  if (!apiUrl) return <div>Cargando configuración...</div>
+  if (backendUrl === "403") return <Page403 />
+  if (!setBackendUrl) return <div>Cargando configuración...</div>
 
   return (
     <ApiURLContext.Provider
       value={{
-        apiUrl,
-
-        setApiUrl,
-        // Metodos
+        backendUrl,
+        nombre,
+        logoImage,
+        setBackendUrl,
       }}
     >
       {children}
@@ -55,11 +76,11 @@ export function ApiURLProvider({ children }: { children: React.ReactNode }) {
   )
 }
 
-//El hook para acceder
+// Hook para acceder
 export function useApiURL() {
   const context = useContext(ApiURLContext)
   if (context === undefined) {
-    throw new Error("useAuth must be used within an AuthProvider")
+    throw new Error("useApiURL must be used within an ApiURLProvider")
   }
   return context
 }

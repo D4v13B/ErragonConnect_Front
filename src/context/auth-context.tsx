@@ -2,7 +2,6 @@ import { createContext, useContext, useEffect, useState } from "react"
 import { useToast } from "@/hooks/use-toast"
 import { loginApi } from "@/core/api/auth/login.api"
 import { LocalStorageService } from "@/core/utils/localStorage"
-import { useApiURL } from "./apiurl-context"
 
 // Define types
 export interface User {
@@ -135,7 +134,6 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     setUser(null)
     // setApiUrl("")
     localStorage.removeItem("user")
-    localStorage.removeItem("api_url")
     toast({
       title: "Logged out",
       description: "You have been logged out successfully",

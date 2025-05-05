@@ -1,47 +1,62 @@
-import { cn } from "@/lib/utils";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "./ui/card";
-import { useAuth } from "@/context/auth-context";
-import { useNavigate } from "react-router-dom";
-import { useState } from "react";
-import { MessageSquare } from "lucide-react";
+import { cn } from "@/lib/utils"
+import { Button } from "@/components/ui/button"
+import { Input } from "@/components/ui/input"
+import { Label } from "@/components/ui/label"
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "./ui/card"
+import { useAuth } from "@/context/auth-context"
+import { useNavigate } from "react-router-dom"
+import { useState } from "react"
+import { MessageSquare } from "lucide-react"
+import { useApiURL } from "@/context/apiurl-context"
 
 export function LoginForm({
   className,
   ...props
 }: React.ComponentPropsWithoutRef<"form">) {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const { login } = useAuth();
-  const navigate = useNavigate();
+  const [email, setEmail] = useState("")
+  const [password, setPassword] = useState("")
+  const [isSubmitting, setIsSubmitting] = useState(false)
+  const { login } = useAuth()
+  const { logoImage } = useApiURL()
+  const navigate = useNavigate()
 
   const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setIsSubmitting(true);
+    e.preventDefault()
+    setIsSubmitting(true)
 
     try {
-      const success = await login(email, password);
+      const success = await login(email, password)
       if (success) {
-        navigate("/");
+        navigate("/")
       }
     } finally {
-      setIsSubmitting(false);
+      setIsSubmitting(false)
     }
-  };
+  }
 
   return (
     <div className="w-full max-w-md">
       <Card className="border-border shadow-lg">
         <CardHeader className="space-y-1 text-center">
           <div className="flex justify-center mb-2">
-            <div className="rounded-full bg-primary/10 p-3">
-              <MessageSquare className="h-10 w-10 text-primary" />
-            </div>
+            {!logoImage ? (
+              <div className="rounded-full bg-primary/10 p-3">
+                <MessageSquare className="h-10 w-10 text-primary" />
+              </div>
+            ) : (
+              <img className="rounded-2xl h-28" src={logoImage} alt="Logo" />
+            )}
           </div>
-          <CardTitle className="text-2xl font-bold">Bienvenido a Nabucore! 🫡</CardTitle>
+          <CardTitle className="text-2xl font-bold">
+            Bienvenido a Nabucore! 🫡
+          </CardTitle>
           <CardDescription>
             Ingresa tus credenciales para acceder a tu cuenta
           </CardDescription>
@@ -91,7 +106,7 @@ export function LoginForm({
         </form>
       </Card>
 
-      <div className="mt-4 text-center text-sm text-muted-foreground">
+      {/* <div className="mt-4 text-center text-sm text-muted-foreground">
         <p>
           For demo purposes, use:
           <br />
@@ -99,7 +114,7 @@ export function LoginForm({
           <br />
           Password: password
         </p>
-      </div>
+      </div> */}
     </div>
-  );
+  )
 }

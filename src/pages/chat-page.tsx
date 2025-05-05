@@ -28,7 +28,7 @@ function MessageItem({ content, timestamp, isOwn }: MessageItemProps) {
             : "bg-secondary text-secondary-foreground"
         )}
       >
-        <p>{content}</p>
+        <p style={{whiteSpace: "preserve-breaks"}}>{content}</p>
         <p className="mt-1 text-right text-xs">{time}</p>
       </div>
     </div>
