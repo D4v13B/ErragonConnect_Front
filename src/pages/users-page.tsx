@@ -18,14 +18,6 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog"
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import {
@@ -37,15 +29,10 @@ import {
 } from "@/components/ui/select"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import {
-  MoreHorizontal,
   UserPlus,
   Search,
-  Edit,
-  Trash,
-  UserCircle,
-  Mail,
-  MessageSquare,
   Shield,
+  UserCircle,
 } from "lucide-react"
 import { Badge } from "@/components/ui/badge"
 import {
@@ -227,7 +214,7 @@ export default function UsersPage() {
 
   // Calculate stats
   const totalUsers = users.length
-  const onlineUsers = users.filter((user) => user.isOnline).length
+  // const onlineUsers = users.filter((user) => user.isOnline).length
   const adminUsers = users.filter((user) => user.role == "admin").length
 
   // Add new user
@@ -307,7 +294,7 @@ export default function UsersPage() {
             <p className="text-xs text-muted-foreground">As of {currentDate}</p>
           </CardContent>
         </Card>
-        <Card>
+        {/* <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium">Online Users</CardTitle>
             <UserCircle className="h-4 w-4 text-green-500" />
@@ -318,7 +305,7 @@ export default function UsersPage() {
               {Math.round((onlineUsers / totalUsers) * 100)}% of total users
             </p>
           </CardContent>
-        </Card>
+        </Card> */}
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium">Admin Users</CardTitle>
@@ -342,8 +329,8 @@ export default function UsersPage() {
               <TableHead>Nombre</TableHead>
               <TableHead>Email</TableHead>
               <TableHead>Rol</TableHead>
-              <TableHead>Estado</TableHead>
-              <TableHead className="text-right">Actions</TableHead>
+              {/* <TableHead>Estado</TableHead> */}
+              {/* <TableHead className="text-right">Actions</TableHead> */}
             </TableRow>
           </TableHeader>
           <TableBody>
@@ -355,10 +342,10 @@ export default function UsersPage() {
                       <Avatar className="h-8 w-8 mr-2">
                         <AvatarImage src={user.avatar} alt={user.usuario} />
                         <AvatarFallback>
-                          {user.nombre.charAt(0).toUpperCase()}
+                          {user.usuario?.charAt(0).toUpperCase()}
                         </AvatarFallback>
                       </Avatar>
-                      <span>{user.nombre}</span>
+                      <span>{user.usuario}</span>
                     </div>
                   </TableCell>
                   <TableCell>
@@ -372,7 +359,7 @@ export default function UsersPage() {
                       {user.role}
                     </Badge>
                   </TableCell>
-                  <TableCell>
+                  {/* <TableCell>
                     <div className="flex items-center">
                       <div
                         className={`mr-2 h-2.5 w-2.5 rounded-full ${
@@ -381,8 +368,8 @@ export default function UsersPage() {
                       ></div>
                       {user.isOnline ? "Online" : "Offline"}
                     </div>
-                  </TableCell>
-                  <TableCell className="text-right">
+                  </TableCell> */}
+                  {/* <TableCell className="text-right">
                     <DropdownMenu>
                       <DropdownMenuTrigger asChild>
                         <Button variant="ghost" size="icon">
@@ -423,7 +410,7 @@ export default function UsersPage() {
                         </DropdownMenuItem>
                       </DropdownMenuContent>
                     </DropdownMenu>
-                  </TableCell>
+                  </TableCell> */}
                 </TableRow>
               ))
             ) : (

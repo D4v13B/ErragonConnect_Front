@@ -68,11 +68,11 @@ export function LoginForm({
         >
           <CardContent className="space-y-4">
             <div className="space-y-2">
-              <Label htmlFor="email">Email</Label>
+              <Label htmlFor="email">Usuario o Email</Label>
               <Input
                 id="email"
-                type="email"
-                placeholder="name@example.com"
+                type="text"
+                placeholder="Inserte su correo o usuario"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 required
@@ -89,9 +89,11 @@ export function LoginForm({
                   Forgot password?
                 </Button>
               </div> */}
+              <Label htmlFor="password">Contraseña</Label>
               <Input
                 id="password"
                 type="password"
+                placeholder="********"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 required
