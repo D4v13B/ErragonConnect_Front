@@ -6,6 +6,7 @@ import ChatPage from "../pages/chat-page";
 import ConfigPage from "../pages/config-page";
 import UsersPage from "../pages/users-page";
 import { UserProvider } from "../context/user-context";
+import SyncPage from "@/pages/sync-page";
 
 // Protected route component
 const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
@@ -42,6 +43,7 @@ export default function AppRoutes() {
           <Route path="chat" element={<ChatPage />} />
           <Route path="config" element={<ConfigPage />} />
           <Route path="users" element={<UsersPage />} />
+          <Route path="sync" element={<SyncPage/>}/>
         </Route>
         
         <Route path="*" element={<Navigate to="/" replace />} />
