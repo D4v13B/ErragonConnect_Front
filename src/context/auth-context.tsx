@@ -15,6 +15,7 @@ export interface User {
   token?: string
   isOnline?: boolean
   password?: string
+  invisible?: number
 }
 
 interface AuthContextType {

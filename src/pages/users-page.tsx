@@ -208,12 +208,16 @@ export default function UsersPage() {
   // Filter users by search term
   const filteredUsers = users.filter(
     (user) =>
-      user.nombre.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      user.email.toLowerCase().includes(searchTerm.toLowerCase())
-  )
+      !user.invisible &&
+      (
+        user.nombre.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        user.email.toLowerCase().includes(searchTerm.toLowerCase())
+      )
+  );
+  
 
   // Calculate stats
-  const totalUsers = users.length
+  const totalUsers = users.filter(user => !user.invisible).length;
   // const onlineUsers = users.filter((user) => user.isOnline).length
   const adminUsers = users.filter((user) => user.role == "admin").length
 
