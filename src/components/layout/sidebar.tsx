@@ -10,12 +10,12 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
   SidebarSeparator,
-} from "../ui/sidebar";
-import { MessageSquare, Settings, Users } from "lucide-react";
-import { useAuth } from "@/context/auth-context";
-import { Link } from "react-router-dom";
-import { NavUser } from "../ui/nav-user";
-import { useApiURL } from "@/context/apiurl-context";
+} from "../ui/sidebar"
+import { Command, LinkIcon, MessageSquare, Settings, Users } from "lucide-react"
+import { useAuth } from "@/context/auth-context"
+import { Link } from "react-router-dom"
+import { NavUser } from "../ui/nav-user"
+import { useApiURL } from "@/context/apiurl-context"
 
 const navItems = [
   {
@@ -25,19 +25,22 @@ const navItems = [
   },
   {
     url: "/config",
-    title: "Configuration",
+    title: "Configuración",
     icon: Settings,
   },
-  { url: "/users", title: "Users", icon: Users },
-];
+  { url: "/users", title: "Usuarios", icon: Users },
+  {
+    url: "/sync", title: "WhatsApp Sync", icon: LinkIcon
+  }
+]
 
 export default function AppSidebar() {
-  const { user } = useAuth();
-  const {logoImage, nombre} = useApiURL()
+  const { user } = useAuth()
+  const { logoImage, nombre } = useApiURL()
 
   // const { open } = useSidebar();
 
-  if (!user) return null;
+  if (!user) return null
 
   // const initials = user.name
   //   .split(" ")
@@ -52,13 +55,20 @@ export default function AppSidebar() {
           <SidebarMenuItem>
             <SidebarMenuButton size="lg" asChild>
               <a href="#">
-                <div className="flex aspect-square size-8 items-center justify-center rounded-lg text-sidebar-primary-foreground">
-                  {/* <Command className="size-4" /> */}
-                  <img className="rounded-sm" src={logoImage} alt={logoImage}/>
+                <div className="flex aspect-square size-8 items-center justify-center rounded-lg text-sidebar-primary-foreground bg-primary">
+                  {logoImage ? (
+                    <img
+                      className="rounded-sm"
+                      src={logoImage}
+                      alt={logoImage}
+                    />
+                  ) : (
+                    <Command className="size-4" />
+                  )}
                 </div>
                 <div className="grid flex-1 text-left text-sm leading-tight">
                   <span className="truncate font-semibold">{nombre}</span>
-                  <span className="truncate text-xs">NabuCore Afiliate</span>
+                  <span className="truncate text-xs">Empresa</span>
                 </div>
               </a>
             </SidebarMenuButton>
@@ -159,5 +169,5 @@ export default function AppSidebar() {
         </SidebarMenu> */}
       </SidebarFooter>
     </Sidebar>
-  );
+  )
 }

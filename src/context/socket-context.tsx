@@ -35,6 +35,9 @@ export function SocketProvider({ children }: { children: React.ReactNode }) {
       query: {
         userId: user.id,
       },
+      auth: {
+        token: user.token
+      }
     });
 
     // Socket event handlers

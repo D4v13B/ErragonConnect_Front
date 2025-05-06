@@ -25,13 +25,16 @@ export interface UserChat {
   nombre: string
   numero: string
   botActivo: boolean
+  tag: number
   createdAt: string
   updatedAt: string
   mensajes: Message[]
+  avatar?: string
 }
 
 interface ChatContextType {
   users: UserChat[]
+  setUsers: (users: UserChat[]) => void
   activeUserId: string | null | number
   activeMessages: Message[]
   isTyping: boolean
@@ -83,7 +86,7 @@ export function ChatProvider({ children }: { children: React.ReactNode }) {
 
       // Define the event listener to handle the "clients-list" response from the server
       const handleClientsList = (clientes: UserChat[]) => {
-        console.log(clientes)
+        // console.log(clientes)
         setUsers(clientes) // Actualiza el estado de usuarios con la respuesta del servidor
       }
 
@@ -227,6 +230,7 @@ export function ChatProvider({ children }: { children: React.ReactNode }) {
     <ChatContext.Provider
       value={{
         users,
+        setUsers,
         activeUserId,
         activeMessages,
         setActiveUserNumber,
